@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "TweetViewController.h"
 #import "User.h"
 #import "Tweet.h"
 #import "TweetCell.h"
@@ -25,6 +26,7 @@
 @end
 
 @implementation HomeViewController
+
 
 #pragma - UIViewController
 
@@ -68,16 +70,34 @@
 
 
 #pragma - UITableViewDelegate
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    return nil;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    TweetViewController *vc = [[TweetViewController alloc] init];
+    vc.tweet = self.tweets[indexPath.row];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [[self navigationController] pushViewController:vc animated:YES];
 }
 
 
-#pragma - Private
+#pragma - User Actions
+
+// http://www.appcoda.com/pull-to-refresh-uitableview-empty/
+// http://stackoverflow.com/a/12502450/237637
+- (UIRefreshControl *)refreshControl {
+    if(!_refreshControl) {
+        _refreshControl = [[UIRefreshControl alloc] init];
+        _refreshControl.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+        _refreshControl.tintColor = [UIColor darkGrayColor];
+        [_tableView addSubview:_refreshControl];
+    }
+    return _refreshControl;
+}
 
 - (void)onLogout {
     [[User currentUser] logout];
 }
+
+
+#pragma - Private
 
 - (NSArray *)tweets {
     if (!_tweets) {
@@ -93,18 +113,6 @@
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];
     }];
-}
-
-// http://www.appcoda.com/pull-to-refresh-uitableview-empty/
-// http://stackoverflow.com/a/12502450/237637
-- (UIRefreshControl *)refreshControl {
-    if(!_refreshControl) {
-        _refreshControl = [[UIRefreshControl alloc] init];
-        _refreshControl.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
-        _refreshControl.tintColor = [UIColor darkGrayColor];
-        [_tableView addSubview:_refreshControl];
-    }
-    return _refreshControl;
 }
 
 @end
