@@ -10,13 +10,18 @@
 
 NSString * const kTuitteurOauthUrl = @"tuitteur://oauth";
 
-NSString * const kTwitterApiBaseUrl = @"https://api.twitter.com";
 NSString * const kTwitterOauthRequestTokenPath = @"oauth/request_token";
 NSString * const kTwitterOauthAccessTokenPath = @"oauth/access_token";
 NSString * const kTwitterOauthAuthorizeUrlString = @"https://api.twitter.com/oauth/authorize?oauth_token=%@";
 
-NSString * const kTwitterUserPath = @"1.1/account/verify_credentials.json";
-NSString * const kTwitterTimelinePath = @"1.1/statuses/home_timeline.json";
+NSString * const kTwitterApiBaseUrl = @"https://api.twitter.com";
+NSString * const kTwitterApiUserShowUrl = @"1.1/account/verify_credentials.json";
+NSString * const kTwitterApiTweetIndexUrl = @"1.1/statuses/home_timeline.json";
+NSString * const kTwitterApiTweetShowUrl = @"1.1/statuses/show/%ld.json?include_my_retweet=1";
+NSString * const kTwitterApiTweetDestroyUrl = @"1.1/statuses/destroy/%ld.json";
+NSString * const kTwitterApiRetweetCreateUrl = @"1.1/statuses/retweet/%ld.json";
+NSString * const kTwitterApiFavoriteCreateUrl = @"/1.1/favorites/create.json";
+NSString * const kTwitterApiFavoriteDestroyUrl = @"/1.1/favorites/destroy.json";
 
 
 @interface TwitterClient ()
@@ -67,12 +72,12 @@ NSString * const kTwitterTimelinePath = @"1.1/statuses/home_timeline.json";
                       requestToken:[BDBOAuth1Credential credentialWithQueryString:query]
                            success:^(BDBOAuth1Credential *accessToken) {
                                [self.requestSerializer saveAccessToken:accessToken];
-                               [self GET:kTwitterUserPath
+                               [self GET:kTwitterApiUserShowUrl
                               parameters:nil
-                                 success:^(AFHTTPRequestOperation * _Nonnull operation, id  _Nonnull responseObject) {
+                                 success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                      self.loginCompletion(responseObject, nil);
                                  }
-                                 failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+                                 failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                      self.loginCompletion(nil, error);
                                  }];
                            } failure:^(NSError *error) {
@@ -80,14 +85,63 @@ NSString * const kTwitterTimelinePath = @"1.1/statuses/home_timeline.json";
                            }];
 }
 
-- (void)timelineWithParams:(NSArray *)params completion:(void (^)(NSArray *responseObject, NSError *error))completion {
-    [self GET:kTwitterTimelinePath
+- (void)getTweets:(void (^)(NSArray *responseObject, NSError *error))completion {
+    [self GET:kTwitterApiTweetIndexUrl
    parameters:nil
-      success:^(AFHTTPRequestOperation * operation, NSArray *responseObject) {
+      success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
           completion(responseObject, nil);
-      } failure:^(AFHTTPRequestOperation * operation, NSError * error) {
+      } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
           completion(nil, error);
       }];
+}
+
+- (void)getTweetWithTweetId:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error))completion {
+    [self GET:[NSString stringWithFormat:kTwitterApiTweetShowUrl, (long)identifier]
+   parameters:nil
+      success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+          completion(responseObject, nil);
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          completion(nil, error);
+      }];
+}
+
+- (void)deleteTweetWithTweetId:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error))completion {
+    [self GET:[NSString stringWithFormat:kTwitterApiTweetDestroyUrl, (long)identifier]
+   parameters:nil
+      success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+          completion(responseObject, nil);
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          completion(nil, error);
+      }];
+}
+
+- (void)createRetweetWithTweetId:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error)) completion {
+    [self POST:[NSString stringWithFormat:kTwitterApiRetweetCreateUrl, (long)identifier]
+    parameters:nil
+       success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+           completion(responseObject, nil);
+       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           completion(nil, error);
+       }];
+
+}
+
+- (void)createFavoriteWithTweetId:(NSInteger)identifier errorHandler:(void (^)(NSArray *responseObject, NSError *error))errorHandler {
+    [self POST:kTwitterApiFavoriteCreateUrl
+    parameters:@{@"id":@(identifier)}
+       success:nil
+       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          errorHandler(nil, error);
+      }];
+}
+
+- (void)deleteFavoriteWithTweetId:(NSInteger)identifier errorHandler:(void (^)(NSArray *responseObject, NSError *error))errorHandler {
+    [self POST:kTwitterApiFavoriteDestroyUrl
+    parameters:@{@"id":@(identifier)}
+       success:nil
+       failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+           errorHandler(nil, error);
+       }];
 }
 
 @end

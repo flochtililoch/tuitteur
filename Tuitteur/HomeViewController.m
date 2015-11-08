@@ -108,7 +108,7 @@
 
 - (void)fetchTweets {
     [self.refreshControl beginRefreshing];
-    [Tweet timelineWithCompletion:^(NSArray *tweets, NSError *error) {
+    [Tweet indexWithCompletion:^(NSArray *tweets, NSError *error) {
         self.tweets = tweets;
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];

@@ -12,6 +12,7 @@ extern NSString * const kCurrentUserDidChangeNotification;
 
 @interface User : NSObject
 
+@property (nonatomic, assign) NSInteger identifier;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *screenName;
 @property (nonatomic, strong) NSURL *profileImageUrl;

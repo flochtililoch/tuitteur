@@ -23,6 +23,7 @@ NSString * const kCurrentUserDidChangeNotification = @"UserDidLoginNotification"
     self = [super init];
     if (self) {
         self.dictionary = dictionary;
+        self.identifier = [dictionary[@"id_str"] integerValue];
         self.name = dictionary[@"name"];
         self.screenName = [@"@" stringByAppendingString:dictionary[@"screen_name"]];
         self.profileImageUrl = [NSURL URLWithString:dictionary[@"profile_image_url"]];

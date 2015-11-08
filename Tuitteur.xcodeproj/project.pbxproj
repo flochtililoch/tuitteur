@@ -22,6 +22,8 @@
 		4ACC8A431BEDABC6003388B8 /* TweetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A411BEDABC6003388B8 /* TweetViewController.m */; };
 		4ACC8A441BEDABC6003388B8 /* TweetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ACC8A421BEDABC6003388B8 /* TweetViewController.xib */; };
 		4ACC8A481BEDC53A003388B8 /* NSLayoutConstraintHairline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A471BEDC53A003388B8 /* NSLayoutConstraintHairline.m */; };
+		4ACC8A4E1BEE896D003388B8 /* TweetActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A4D1BEE896D003388B8 /* TweetActionButton.m */; };
+		4ACC8A511BEE8C1A003388B8 /* TweetLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A501BEE8C1A003388B8 /* TweetLikeButton.m */; };
 		4AEB3E391BEB06A80040C221 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEB3E371BEB06A80040C221 /* NavigationViewController.m */; };
 		4AEB3E3F1BEB153A0040C221 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEB3E3D1BEB153A0040C221 /* TweetCell.m */; };
 		4AEB3E401BEB153A0040C221 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AEB3E3E1BEB153A0040C221 /* TweetCell.xib */; };
@@ -55,6 +57,10 @@
 		4ACC8A421BEDABC6003388B8 /* TweetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetViewController.xib; sourceTree = "<group>"; };
 		4ACC8A461BEDC53A003388B8 /* NSLayoutConstraintHairline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSLayoutConstraintHairline.h; sourceTree = "<group>"; };
 		4ACC8A471BEDC53A003388B8 /* NSLayoutConstraintHairline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSLayoutConstraintHairline.m; sourceTree = "<group>"; };
+		4ACC8A4C1BEE896D003388B8 /* TweetActionButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetActionButton.h; sourceTree = "<group>"; };
+		4ACC8A4D1BEE896D003388B8 /* TweetActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetActionButton.m; sourceTree = "<group>"; };
+		4ACC8A4F1BEE8C1A003388B8 /* TweetLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetLikeButton.h; sourceTree = "<group>"; };
+		4ACC8A501BEE8C1A003388B8 /* TweetLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetLikeButton.m; sourceTree = "<group>"; };
 		4AEB3E361BEB06A80040C221 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		4AEB3E371BEB06A80040C221 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		4AEB3E3C1BEB153A0040C221 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
@@ -187,6 +193,10 @@
 				4AEB3E3C1BEB153A0040C221 /* TweetCell.h */,
 				4AEB3E3D1BEB153A0040C221 /* TweetCell.m */,
 				4AEB3E3E1BEB153A0040C221 /* TweetCell.xib */,
+				4ACC8A4C1BEE896D003388B8 /* TweetActionButton.h */,
+				4ACC8A4D1BEE896D003388B8 /* TweetActionButton.m */,
+				4ACC8A4F1BEE8C1A003388B8 /* TweetLikeButton.h */,
+				4ACC8A501BEE8C1A003388B8 /* TweetLikeButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -318,6 +328,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AEB3E3F1BEB153A0040C221 /* TweetCell.m in Sources */,
+				4ACC8A511BEE8C1A003388B8 /* TweetLikeButton.m in Sources */,
 				4AB6716A1BE9C5AC00F893C9 /* LoginViewController.m in Sources */,
 				4AB671651BE9BECB00F893C9 /* TwitterClient.m in Sources */,
 				4AB671721BE9D0A000F893C9 /* User.m in Sources */,
@@ -326,6 +337,7 @@
 				4AB671501BE9A94000F893C9 /* AppDelegate.m in Sources */,
 				4ACC8A481BEDC53A003388B8 /* NSLayoutConstraintHairline.m in Sources */,
 				4AEB3E391BEB06A80040C221 /* NavigationViewController.m in Sources */,
+				4ACC8A4E1BEE896D003388B8 /* TweetActionButton.m in Sources */,
 				4AEB3E441BEB2F360040C221 /* UIImageView+FadeIn.m in Sources */,
 				4AB671761BE9E73500F893C9 /* HomeViewController.m in Sources */,
 				4AB6714D1BE9A94000F893C9 /* main.m in Sources */,
