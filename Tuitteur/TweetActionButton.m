@@ -10,10 +10,12 @@
 
 @implementation TweetActionButton
 
-- (id)init {
-    self = [super init];
+- (id)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
     if (self) {
         [self update];
+        [self setTitleEdgeInsets:UIEdgeInsetsMake(70.0, -150.0, 5.0, 5.0)];
+        [self setTitle:@"Your text" forState:UIControlStateNormal];
     }
     return self;
 }
@@ -30,10 +32,6 @@
 
 - (void)update {
     self.tintColor = self.isOn ? [self class].onColor : [self class].color;
-}
-
-+ (UIColor *)inactiveColor {
-    return [UIColor colorWithRed:0.67 green:0.72 blue:0.76 alpha:.3];
 }
 
 + (UIColor *)color {

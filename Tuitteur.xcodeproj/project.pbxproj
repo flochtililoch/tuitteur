@@ -24,6 +24,12 @@
 		4ACC8A481BEDC53A003388B8 /* NSLayoutConstraintHairline.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A471BEDC53A003388B8 /* NSLayoutConstraintHairline.m */; };
 		4ACC8A4E1BEE896D003388B8 /* TweetActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A4D1BEE896D003388B8 /* TweetActionButton.m */; };
 		4ACC8A511BEE8C1A003388B8 /* TweetLikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A501BEE8C1A003388B8 /* TweetLikeButton.m */; };
+		4ACC8A551BEED4B9003388B8 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A531BEED4B9003388B8 /* ComposeViewController.m */; };
+		4ACC8A561BEED4B9003388B8 /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ACC8A541BEED4B9003388B8 /* ComposeViewController.xib */; };
+		4ACC8A5A1BEF13C1003388B8 /* TweetActionsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ACC8A591BEF13C1003388B8 /* TweetActionsView.xib */; };
+		4ACC8A5D1BEF13F9003388B8 /* TweetActionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A5C1BEF13F9003388B8 /* TweetActionsView.m */; };
+		4ACC8A601BEFB28D003388B8 /* RetweetedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A5F1BEFB28D003388B8 /* RetweetedView.m */; };
+		4ACC8A621BEFB2AE003388B8 /* RetweetedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ACC8A611BEFB2AE003388B8 /* RetweetedView.xib */; };
 		4AEB3E391BEB06A80040C221 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEB3E371BEB06A80040C221 /* NavigationViewController.m */; };
 		4AEB3E3F1BEB153A0040C221 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEB3E3D1BEB153A0040C221 /* TweetCell.m */; };
 		4AEB3E401BEB153A0040C221 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AEB3E3E1BEB153A0040C221 /* TweetCell.xib */; };
@@ -61,6 +67,15 @@
 		4ACC8A4D1BEE896D003388B8 /* TweetActionButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetActionButton.m; sourceTree = "<group>"; };
 		4ACC8A4F1BEE8C1A003388B8 /* TweetLikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetLikeButton.h; sourceTree = "<group>"; };
 		4ACC8A501BEE8C1A003388B8 /* TweetLikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetLikeButton.m; sourceTree = "<group>"; };
+		4ACC8A521BEED4B9003388B8 /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		4ACC8A531BEED4B9003388B8 /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		4ACC8A541BEED4B9003388B8 /* ComposeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
+		4ACC8A591BEF13C1003388B8 /* TweetActionsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TweetActionsView.xib; sourceTree = "<group>"; };
+		4ACC8A5B1BEF13F9003388B8 /* TweetActionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetActionsView.h; sourceTree = "<group>"; };
+		4ACC8A5C1BEF13F9003388B8 /* TweetActionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetActionsView.m; sourceTree = "<group>"; };
+		4ACC8A5E1BEFB28D003388B8 /* RetweetedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetweetedView.h; sourceTree = "<group>"; };
+		4ACC8A5F1BEFB28D003388B8 /* RetweetedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetweetedView.m; sourceTree = "<group>"; };
+		4ACC8A611BEFB2AE003388B8 /* RetweetedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RetweetedView.xib; sourceTree = "<group>"; };
 		4AEB3E361BEB06A80040C221 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		4AEB3E371BEB06A80040C221 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		4AEB3E3C1BEB153A0040C221 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
@@ -154,6 +169,9 @@
 				4ACC8A401BEDABC6003388B8 /* TweetViewController.h */,
 				4ACC8A411BEDABC6003388B8 /* TweetViewController.m */,
 				4ACC8A421BEDABC6003388B8 /* TweetViewController.xib */,
+				4ACC8A521BEED4B9003388B8 /* ComposeViewController.h */,
+				4ACC8A531BEED4B9003388B8 /* ComposeViewController.m */,
+				4ACC8A541BEED4B9003388B8 /* ComposeViewController.xib */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -197,6 +215,12 @@
 				4ACC8A4D1BEE896D003388B8 /* TweetActionButton.m */,
 				4ACC8A4F1BEE8C1A003388B8 /* TweetLikeButton.h */,
 				4ACC8A501BEE8C1A003388B8 /* TweetLikeButton.m */,
+				4ACC8A591BEF13C1003388B8 /* TweetActionsView.xib */,
+				4ACC8A5B1BEF13F9003388B8 /* TweetActionsView.h */,
+				4ACC8A5C1BEF13F9003388B8 /* TweetActionsView.m */,
+				4ACC8A5E1BEFB28D003388B8 /* RetweetedView.h */,
+				4ACC8A5F1BEFB28D003388B8 /* RetweetedView.m */,
+				4ACC8A611BEFB2AE003388B8 /* RetweetedView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -279,11 +303,14 @@
 			files = (
 				4AB6715B1BE9A94000F893C9 /* LaunchScreen.storyboard in Resources */,
 				4ACC8A441BEDABC6003388B8 /* TweetViewController.xib in Resources */,
+				4ACC8A621BEFB2AE003388B8 /* RetweetedView.xib in Resources */,
 				4AEB3E461BEB419B0040C221 /* configuration.plist in Resources */,
+				4ACC8A5A1BEF13C1003388B8 /* TweetActionsView.xib in Resources */,
 				4AEB3E401BEB153A0040C221 /* TweetCell.xib in Resources */,
 				4AB671581BE9A94000F893C9 /* Assets.xcassets in Resources */,
 				4AB6716B1BE9C5AC00F893C9 /* LoginViewController.xib in Resources */,
 				4AB671771BE9E73500F893C9 /* HomeViewController.xib in Resources */,
+				4ACC8A561BEED4B9003388B8 /* ComposeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,7 +356,9 @@
 			files = (
 				4AEB3E3F1BEB153A0040C221 /* TweetCell.m in Sources */,
 				4ACC8A511BEE8C1A003388B8 /* TweetLikeButton.m in Sources */,
+				4ACC8A5D1BEF13F9003388B8 /* TweetActionsView.m in Sources */,
 				4AB6716A1BE9C5AC00F893C9 /* LoginViewController.m in Sources */,
+				4ACC8A551BEED4B9003388B8 /* ComposeViewController.m in Sources */,
 				4AB671651BE9BECB00F893C9 /* TwitterClient.m in Sources */,
 				4AB671721BE9D0A000F893C9 /* User.m in Sources */,
 				4AB6716F1BE9D09600F893C9 /* Tweet.m in Sources */,
@@ -340,6 +369,7 @@
 				4ACC8A4E1BEE896D003388B8 /* TweetActionButton.m in Sources */,
 				4AEB3E441BEB2F360040C221 /* UIImageView+FadeIn.m in Sources */,
 				4AB671761BE9E73500F893C9 /* HomeViewController.m in Sources */,
+				4ACC8A601BEFB28D003388B8 /* RetweetedView.m in Sources */,
 				4AB6714D1BE9A94000F893C9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

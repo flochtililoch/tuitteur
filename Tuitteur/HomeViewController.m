@@ -7,12 +7,15 @@
 //
 
 #import "HomeViewController.h"
+#import "NavigationViewController.h"
 #import "TweetViewController.h"
+#import "ComposeViewController.h"
+#import "TweetActionsView.h"
+#import "TweetCell.h"
 #import "User.h"
 #import "Tweet.h"
-#import "TweetCell.h"
 
-@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, ComposeTweetDelegate, TweetActionsDelegate, TweetViewControllerDelegate>
 
 // IBOutlets
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -43,6 +46,13 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(onLogout)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"compose"]
+                                                                landscapeImagePhone:nil
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(onCompose)];
+    
     // Loading
     [self.refreshControl addTarget:self
                             action:@selector(fetchTweets)
@@ -64,6 +74,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"tweetCell"];
+    cell.delegate = self;
     cell.tweet = self.tweets[indexPath.row];
     return cell;
 }
@@ -72,9 +83,43 @@
 #pragma - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     TweetViewController *vc = [[TweetViewController alloc] init];
+    vc.delegate = self;
     vc.tweet = self.tweets[indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [[self navigationController] pushViewController:vc animated:YES];
+}
+
+
+#pragma - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat actualPosition = self.tableView.contentOffset.y;
+    CGFloat contentHeight = self.tableView.contentSize.height - self.tableView.frame.size.height;
+    if (actualPosition >= contentHeight) {
+// TODO: Restrict # of search per scroll
+//        [self fetchOlderTweetsThan:[self.tweets lastObject]];
+    }
+}
+
+
+#pragma - TweetViewControllerDelegate
+
+- (void)viewController:(TweetViewController *)viewController didSubmitTweet:(Tweet *)tweet {
+    [self addTweetToTimelineTop:tweet];
+}
+
+
+#pragma - ComposeTweetDelegate
+
+- (void)tweetSubmitted:(Tweet *)tweet {
+    [self addTweetToTimelineTop:tweet];
+}
+
+
+#pragma - TweetActionsDelegate
+
+- (void)replyToTweet:(Tweet *)tweet {
+    [self presentComposeTweetViewWithTweet:[Tweet factory] inResponseToTweet:tweet];
 }
 
 
@@ -85,7 +130,7 @@
 - (UIRefreshControl *)refreshControl {
     if(!_refreshControl) {
         _refreshControl = [[UIRefreshControl alloc] init];
-        _refreshControl.backgroundColor = [UIColor colorWithRed:0.85 green:0.85 blue:0.85 alpha:1.0];
+        _refreshControl.backgroundColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:.1];
         _refreshControl.tintColor = [UIColor darkGrayColor];
         [_tableView addSubview:_refreshControl];
     }
@@ -96,8 +141,17 @@
     [[User currentUser] logout];
 }
 
+- (void)onCompose {
+    [self presentComposeTweetViewWithTweet:[Tweet factory]];
+}
+
 
 #pragma - Private
+
+- (void)addTweetToTimelineTop:(Tweet *)tweet {
+    self.tweets = [@[tweet] arrayByAddingObjectsFromArray:self.tweets];
+    [self.tableView reloadData];
+}
 
 - (NSArray *)tweets {
     if (!_tweets) {
@@ -113,6 +167,37 @@
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];
     }];
+}
+
+- (void)fetchOlderTweetsThan:(Tweet *)tweet {
+    [self.refreshControl beginRefreshing];
+    [Tweet indexForOlderThan:(Tweet *)tweet completion:^(NSArray *tweets, NSError *error) {
+        self.tweets = [self.tweets arrayByAddingObjectsFromArray:tweets];
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)fetchNewerTweetsThan:(Tweet *)tweet {
+    [self.refreshControl beginRefreshing];
+    [Tweet indexForNewerThan:(Tweet *)tweet completion:^(NSArray *tweets, NSError *error) {
+        self.tweets = [self.tweets arrayByAddingObjectsFromArray:tweets];
+        [self.refreshControl endRefreshing];
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)presentComposeTweetViewWithTweet:(Tweet *)tweet {
+    [self presentComposeTweetViewWithTweet:tweet inResponseToTweet:nil];
+}
+
+- (void)presentComposeTweetViewWithTweet:(Tweet *)tweet inResponseToTweet:(Tweet *)originalTweet {
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.delegate = self;
+    vc.tweet = tweet;
+    vc.originalTweet = originalTweet;
+    NavigationViewController *nvc = [[NavigationViewController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 
 @end

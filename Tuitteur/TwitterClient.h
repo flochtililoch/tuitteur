@@ -14,7 +14,9 @@
 
 - (void)loginWithCompletion:(void (^)(NSDictionary *responseObject, NSError *error))completion;
 - (void)completeAuthWithQueryString:(NSString *)query;
-- (void)getTweets:(void (^)(NSArray *responseObject, NSError *error))completion;
+- (void)getTweetsWithParams:(NSDictionary *)params completion:(void (^)(NSArray *responseObject, NSError *error))completion;
+- (void)createTweetWithText:(NSString *)text completion:(void (^)(NSDictionary *responseObject, NSError *error))completion;
+- (void)createTweetWithText:(NSString *)text inResponseToTweet:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error))completion;
 - (void)getTweetWithTweetId:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error))completion;
 - (void)deleteTweetWithTweetId:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error))completion;
 - (void)createRetweetWithTweetId:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error)) completion;

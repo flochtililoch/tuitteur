@@ -17,6 +17,7 @@ NSString * const kTwitterOauthAuthorizeUrlString = @"https://api.twitter.com/oau
 NSString * const kTwitterApiBaseUrl = @"https://api.twitter.com";
 NSString * const kTwitterApiUserShowUrl = @"1.1/account/verify_credentials.json";
 NSString * const kTwitterApiTweetIndexUrl = @"1.1/statuses/home_timeline.json";
+NSString * const kTwitterApiTweetCreateUrl = @"1.1/statuses/update.json";
 NSString * const kTwitterApiTweetShowUrl = @"1.1/statuses/show/%ld.json?include_my_retweet=1";
 NSString * const kTwitterApiTweetDestroyUrl = @"1.1/statuses/destroy/%ld.json";
 NSString * const kTwitterApiRetweetCreateUrl = @"1.1/statuses/retweet/%ld.json";
@@ -85,14 +86,36 @@ NSString * const kTwitterApiFavoriteDestroyUrl = @"/1.1/favorites/destroy.json";
                            }];
 }
 
-- (void)getTweets:(void (^)(NSArray *responseObject, NSError *error))completion {
+- (void)getTweetsWithParams:(NSDictionary *)params completion:(void (^)(NSArray *responseObject, NSError *error))completion {
     [self GET:kTwitterApiTweetIndexUrl
-   parameters:nil
+   parameters:params
       success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
           completion(responseObject, nil);
       } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
           completion(nil, error);
       }];
+}
+
+- (void)createTweetWithText:(NSString *)text completion:(void (^)(NSDictionary *responseObject, NSError *error))completion {
+    [self createTweetWithText:text
+            inResponseToTweet:0
+                   completion:completion];
+}
+
+- (void)createTweetWithText:(NSString *)text inResponseToTweet:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error))completion {
+    NSMutableDictionary *parameters = [@{@"status": text} mutableCopy];
+    
+    if (identifier > 0) {
+        parameters[@"in_reply_to_status_id"] = @(identifier);
+    }
+
+    [self POST:kTwitterApiTweetCreateUrl
+    parameters:parameters
+       success:^(AFHTTPRequestOperation *operation, NSDictionary *responseObject) {
+           completion(responseObject, nil);
+       } failure:^(AFHTTPRequestOperation *operation, NSError * error) {
+           completion(nil, error);
+       }];
 }
 
 - (void)getTweetWithTweetId:(NSInteger)identifier completion:(void (^)(NSDictionary *responseObject, NSError *error))completion {

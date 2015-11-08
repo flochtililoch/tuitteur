@@ -11,6 +11,7 @@
 @interface TweetActionButton : UIButton
 
 @property (nonatomic, assign) BOOL isOn;
+
 - (void)update;
 
 @end

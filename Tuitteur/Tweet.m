@@ -44,6 +44,10 @@
     return self;
 }
 
+- (BOOL)isOwnedByCurrentUser {
+    return [User currentUser].identifier == self.user.identifier;
+}
+
 - (void)like {
     self.liked = YES;
     self.likesCount ++;
@@ -108,6 +112,24 @@
     }
 }
 
+- (void)replyToTweet:(Tweet *)tweet completion:(void (^)(Tweet *tweet, NSError *error))completion {
+    completion(self, nil);
+//    [[TwitterClient sharedInstance] createTweetWithText:self.text inResponseToTweet:tweet.identifier completion:^(NSDictionary *responseObject, NSError *error) {
+//        if (!error) {
+//            self.identifier = [responseObject[@"id_str"] integerValue];
+//        }
+//    }];
+}
+
+- (void)createWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
+    completion(self, nil);
+//    [[TwitterClient sharedInstance] createTweetWithText:self.text completion:^(NSDictionary *responseObject, NSError *error) {
+//        if (!error) {
+//            self.identifier = [responseObject[@"id_str"] integerValue];
+//        }
+//    }];
+}
+
 - (void)getWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
     [[TwitterClient sharedInstance] getTweetWithTweetId:self.identifier completion:^(NSDictionary *responseObject, NSError *error) {
         Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
@@ -116,7 +138,7 @@
 }
 
 - (void)deleteWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
-    NSInteger deleteTweetId = ([User currentUser].identifier == self.user.identifier) ? self.identifier : self.userRetweetId;
+    NSInteger deleteTweetId = [self isOwnedByCurrentUser] ? self.identifier : self.userRetweetId;
     [[TwitterClient sharedInstance] deleteTweetWithTweetId:deleteTweetId completion:^(NSDictionary *responseObject, NSError *error) {
         if(error != nil) {
             completion(nil, error);
@@ -128,7 +150,7 @@
 }
 
 + (void)indexWithCompletion:(void (^)(NSArray *tweets, NSError *error))completion {
-    [[TwitterClient sharedInstance] getTweets:^(NSArray *responseObject, NSError *error) {
+    [[TwitterClient sharedInstance] getTweetsWithParams:nil completion:^(NSArray *responseObject, NSError *error) {
         NSMutableArray *tweets = [NSMutableArray array];
         for (NSDictionary *tweetDictionary in responseObject) {
             [tweets addObject:[[Tweet alloc] initWithDictionary:tweetDictionary]];
@@ -137,10 +159,50 @@
     }];
 }
 
++ (void)indexForOlderThan:(Tweet *)tweet completion:(void (^)(NSArray *tweets, NSError *error))completion {
+    [[TwitterClient sharedInstance] getTweetsWithParams:@{@"max_id":@(tweet.identifier)} completion:^(NSArray *responseObject, NSError *error) {
+        NSMutableArray *tweets = [NSMutableArray array];
+        for (NSDictionary *tweetDictionary in responseObject) {
+            [tweets addObject:[[Tweet alloc] initWithDictionary:tweetDictionary]];
+        }
+        completion(tweets, error);
+    }];
+}
+
++ (void)indexForNewerThan:(Tweet *)tweet completion:(void (^)(NSArray *tweets, NSError *error))completion {
+    [[TwitterClient sharedInstance] getTweetsWithParams:@{@"since_id":@(tweet.identifier)} completion:^(NSArray *responseObject, NSError *error) {
+        NSMutableArray *tweets = [NSMutableArray array];
+        for (NSDictionary *tweetDictionary in responseObject) {
+            [tweets addObject:[[Tweet alloc] initWithDictionary:tweetDictionary]];
+        }
+        completion(tweets, error);
+    }];
+}
+
+
++ (Tweet *)factory {
+    Tweet *tweet = [[Tweet alloc] init];
+    tweet.createdAt = [[NSDate alloc] init];
+    tweet.user = [User currentUser];
+    tweet.text = @"";
+    tweet.liked = NO;
+    tweet.likesCount = 0;
+    tweet.retweeted = NO;
+    tweet.retweetsCount = 0;
+    return tweet;
+}
+
 + (NSDate *)formatDateWithString:(NSString *)dateString {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"EEE MMM d HH:mm:ss Z y";
     return [formatter dateFromString:dateString];
 }
+
+static NSInteger maxLength = 140;
+
++ (NSInteger)maxLength {
+    return maxLength;
+}
+
 
 @end

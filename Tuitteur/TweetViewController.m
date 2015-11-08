@@ -7,11 +7,15 @@
 //
 
 #import "TweetViewController.h"
+#import "NavigationViewController.h"
+#import "ComposeViewController.h"
 #import "UIImageView+FadeIn.h"
 #import "TweetActionButton.h"
 #import "TweetLikeButton.h"
+#import "TweetActionsView.h"
+#import "RetweetedView.h"
 
-@interface TweetViewController ()
+@interface TweetViewController () <TweetActionsDelegate, ComposeTweetDelegate>
 
 // Outlets
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
@@ -21,9 +25,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *tweetLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetsCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *likesCountLabel;
-@property (weak, nonatomic) IBOutlet TweetLikeButton *likeButton;
-@property (weak, nonatomic) IBOutlet TweetActionButton *retweetButton;
-@property (weak, nonatomic) IBOutlet TweetActionButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIView *actionsView;
+@property (weak, nonatomic) IBOutlet RetweetedView *retweetedView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetViewHeightConstraint;
 
 @end
 
@@ -32,60 +36,102 @@
 
 @implementation TweetViewController
 
-- (IBAction)onReplyButton:(id)sender {
-
-}
-
-- (IBAction)onRetweetButton:(id)sender {
-    [self.tweet toggleRetweetWithCompletion:nil];
-    [self updateRetweet];
-}
-
-- (IBAction)onLikeButton:(id)sender {
-    [self.tweet toggleLike];
-    [self updateLike];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"Tweet";
     
-    self.userNameLabel.text = _tweet.user.name;
-    self.userScreenNameLabel.text = _tweet.user.screenName;
-    [self.userProfileImage fadeInWithUrl:_tweet.user.profileImageUrl errorImage:nil placeholderImage:nil];
-    self.tweetLabel.text = _tweet.text;
+    [self updateTweet];
+    [self renderActionsView];
+    [self renderRetweetedView];
+    [self updateRetweets];
+    [self updateLikes];
+}
+
+
+#pragma - TweetActionsDelegate
+
+- (void)replyToTweet:(Tweet *)tweet {
+    [self presentComposeTweetViewWithTweet:[Tweet factory] inResponseToTweet:tweet];
+}
+
+
+#pragma - ComposeTweetDelegate
+
+- (void)tweetSubmitted:(Tweet *)tweet {
+    [self.delegate viewController:self didSubmitTweet:tweet];
+}
+
+
+#pragma - Private
+
+- (void)updateTweet {
+    Tweet *tweet = self.tweet;
+    if (tweet.retweetedFromTweet != nil) {
+        tweet = tweet.retweetedFromTweet;
+    }
+    
+    self.userNameLabel.text = tweet.user.name;
+    self.userScreenNameLabel.text = tweet.user.screenName;
+    [self.userProfileImage fadeInWithUrl:tweet.user.profileImageUrl errorImage:nil placeholderImage:nil];
+    self.userProfileImage.layer.cornerRadius = 5;
+    self.userProfileImage.clipsToBounds = YES;
+    self.tweetLabel.text = tweet.text;
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    self.createdAtLabel.text = [dateFormatter stringFromDate:_tweet.createdAt];
-
-    [self updateRetweet];
-    [self updateLike];
-    [self.replyButton update];
+    self.createdAtLabel.text = [dateFormatter stringFromDate:tweet.createdAt];
 }
 
-- (void)updateLike {
-    NSString *likesCountString = @"0";
-    if (_tweet.likesCount > 0) {
-        likesCountString = [NSString stringWithFormat:@"%ld", (long)_tweet.likesCount];
+- (void)renderActionsView {
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"TweetActionsView"
+                                                   owner:[[TweetActionsView alloc] init]
+                                                 options:nil];
+    TweetActionsView *view = [views objectAtIndex:0];
+
+    view.delegate = self;
+    view.hideCountLabels = YES;
+    view.tweet = self.tweet;
+    [self.actionsView addSubview:view];
+}
+
+- (void)renderRetweetedView {
+    if (!self.tweet.retweetedFromTweet) {
+        self.retweetViewHeightConstraint.constant = 0.0f;
+        return;
     }
-    self.likesCountLabel.text = likesCountString;
-    
-    self.likeButton.isOn = self.tweet.liked;
-    [self.likeButton update];
+    NSArray *views = [[NSBundle mainBundle] loadNibNamed:@"RetweetedView"
+                                                   owner:[[RetweetedView alloc] init]
+                                                 options:nil];
+    RetweetedView *view = [views objectAtIndex:0];
+    view.tweet = self.tweet;
+    [self.retweetedView addSubview:view];
 }
 
-- (void)updateRetweet {
+- (void)updateRetweets {
     NSString *retweetsCountString = @"0";
     if (_tweet.retweetsCount > 0) {
         retweetsCountString = [NSString stringWithFormat:@"%ld", (long)_tweet.retweetsCount];
     }
     self.retweetsCountLabel.text = retweetsCountString;
-    
-    self.retweetButton.isOn = self.tweet.retweeted;
-    [self.retweetButton update];
+}
+
+- (void)updateLikes {
+    NSString *likesCountString = @"0";
+    if (_tweet.likesCount > 0) {
+        likesCountString = [NSString stringWithFormat:@"%ld", (long)_tweet.likesCount];
+    }
+    self.likesCountLabel.text = likesCountString;
+}
+
+- (void)presentComposeTweetViewWithTweet:(Tweet *)tweet inResponseToTweet:(Tweet *)originalTweet {
+    ComposeViewController *vc = [[ComposeViewController alloc] init];
+    vc.delegate = self;
+    vc.tweet = tweet;
+    vc.originalTweet = originalTweet;
+    NavigationViewController *nvc = [[NavigationViewController alloc] initWithRootViewController:vc];
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 
 @end

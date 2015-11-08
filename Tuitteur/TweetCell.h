@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
+#import "TweetActionsView.h"
 
 @interface TweetCell : UITableViewCell
 
 @property (nonatomic, strong) Tweet *tweet;
+@property (nonatomic, assign) id<TweetActionsDelegate> delegate;
 
 @end
