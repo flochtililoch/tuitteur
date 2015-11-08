@@ -7,6 +7,7 @@
 //
 
 #import "NavigationViewController.h"
+#import "UINavigationBar+CustomHeight.h"
 
 @interface NavigationViewController ()
 
@@ -16,14 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationBar.barTintColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:1.0];
+
+    [self.navigationBar setHeight:40.0f];
+    self.navigationBar.tintColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:1.0];
+    self.navigationBar.barTintColor = [UIColor whiteColor];
     self.navigationBar.translucent = NO;
     [self.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-}
-
-- (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
 }
 
 @end

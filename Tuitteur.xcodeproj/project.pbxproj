@@ -30,6 +30,7 @@
 		4ACC8A5D1BEF13F9003388B8 /* TweetActionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A5C1BEF13F9003388B8 /* TweetActionsView.m */; };
 		4ACC8A601BEFB28D003388B8 /* RetweetedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A5F1BEFB28D003388B8 /* RetweetedView.m */; };
 		4ACC8A621BEFB2AE003388B8 /* RetweetedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4ACC8A611BEFB2AE003388B8 /* RetweetedView.xib */; };
+		4ACC8A651BF00DCC003388B8 /* UINavigationBar+CustomHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC8A641BF00DCC003388B8 /* UINavigationBar+CustomHeight.m */; };
 		4AEB3E391BEB06A80040C221 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEB3E371BEB06A80040C221 /* NavigationViewController.m */; };
 		4AEB3E3F1BEB153A0040C221 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AEB3E3D1BEB153A0040C221 /* TweetCell.m */; };
 		4AEB3E401BEB153A0040C221 /* TweetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4AEB3E3E1BEB153A0040C221 /* TweetCell.xib */; };
@@ -76,6 +77,8 @@
 		4ACC8A5E1BEFB28D003388B8 /* RetweetedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetweetedView.h; sourceTree = "<group>"; };
 		4ACC8A5F1BEFB28D003388B8 /* RetweetedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetweetedView.m; sourceTree = "<group>"; };
 		4ACC8A611BEFB2AE003388B8 /* RetweetedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RetweetedView.xib; sourceTree = "<group>"; };
+		4ACC8A631BF00DCC003388B8 /* UINavigationBar+CustomHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+CustomHeight.h"; sourceTree = "<group>"; };
+		4ACC8A641BF00DCC003388B8 /* UINavigationBar+CustomHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+CustomHeight.m"; sourceTree = "<group>"; };
 		4AEB3E361BEB06A80040C221 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		4AEB3E371BEB06A80040C221 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		4AEB3E3C1BEB153A0040C221 /* TweetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweetCell.h; sourceTree = "<group>"; };
@@ -230,6 +233,8 @@
 			children = (
 				4AEB3E421BEB2F360040C221 /* UIImageView+FadeIn.h */,
 				4AEB3E431BEB2F360040C221 /* UIImageView+FadeIn.m */,
+				4ACC8A631BF00DCC003388B8 /* UINavigationBar+CustomHeight.h */,
+				4ACC8A641BF00DCC003388B8 /* UINavigationBar+CustomHeight.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -365,6 +370,7 @@
 				4ACC8A431BEDABC6003388B8 /* TweetViewController.m in Sources */,
 				4AB671501BE9A94000F893C9 /* AppDelegate.m in Sources */,
 				4ACC8A481BEDC53A003388B8 /* NSLayoutConstraintHairline.m in Sources */,
+				4ACC8A651BF00DCC003388B8 /* UINavigationBar+CustomHeight.m in Sources */,
 				4AEB3E391BEB06A80040C221 /* NavigationViewController.m in Sources */,
 				4ACC8A4E1BEE896D003388B8 /* TweetActionButton.m in Sources */,
 				4AEB3E441BEB2F360040C221 /* UIImageView+FadeIn.m in Sources */,

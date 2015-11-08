@@ -28,11 +28,13 @@
     self.tweetTextView.delegate = self;
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    // Navigation
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                                                              style:UIBarButtonItemStylePlain
                                                                             target:self
                                                                             action:@selector(onCancel)];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.originalTweet == nil ?@"Tweet" : @"Reply"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self

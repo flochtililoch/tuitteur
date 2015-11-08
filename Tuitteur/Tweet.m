@@ -114,20 +114,20 @@
 
 - (void)replyToTweet:(Tweet *)tweet completion:(void (^)(Tweet *tweet, NSError *error))completion {
     completion(self, nil);
-//    [[TwitterClient sharedInstance] createTweetWithText:self.text inResponseToTweet:tweet.identifier completion:^(NSDictionary *responseObject, NSError *error) {
-//        if (!error) {
-//            self.identifier = [responseObject[@"id_str"] integerValue];
-//        }
-//    }];
+    [[TwitterClient sharedInstance] createTweetWithText:self.text inResponseToTweet:tweet.identifier completion:^(NSDictionary *responseObject, NSError *error) {
+        if (!error) {
+            self.identifier = [responseObject[@"id_str"] integerValue];
+        }
+    }];
 }
 
 - (void)createWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
     completion(self, nil);
-//    [[TwitterClient sharedInstance] createTweetWithText:self.text completion:^(NSDictionary *responseObject, NSError *error) {
-//        if (!error) {
-//            self.identifier = [responseObject[@"id_str"] integerValue];
-//        }
-//    }];
+    [[TwitterClient sharedInstance] createTweetWithText:self.text completion:^(NSDictionary *responseObject, NSError *error) {
+        if (!error) {
+            self.identifier = [responseObject[@"id_str"] integerValue];
+        }
+    }];
 }
 
 - (void)getWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {

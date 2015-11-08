@@ -41,11 +41,12 @@
     self.tableView.dataSource = self;
 
     // Navigation
-    self.navigationItem.title = @"Home";
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(onLogout)];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"logout"]
+                                                               landscapeImagePhone:nil
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(onLogout)];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"compose"]
                                                                 landscapeImagePhone:nil
@@ -63,6 +64,11 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 125.0;
     [self fetchTweets];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData];
 }
 
 
@@ -131,7 +137,7 @@
     if(!_refreshControl) {
         _refreshControl = [[UIRefreshControl alloc] init];
         _refreshControl.backgroundColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:.1];
-        _refreshControl.tintColor = [UIColor darkGrayColor];
+        _refreshControl.tintColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:1];
         [_tableView addSubview:_refreshControl];
     }
     return _refreshControl;

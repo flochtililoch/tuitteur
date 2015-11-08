@@ -28,17 +28,14 @@
 }
 
 - (void)currentUserDidChange {
-    UINavigationController *nvc = [[NavigationViewController alloc] init];
-    self.window.rootViewController = nvc;
-    UIViewController *vc;
 
     if ([User currentUser] != nil) {
-        vc = [[HomeViewController alloc] init];
+        UINavigationController *nvc = [[NavigationViewController alloc] init];
+        self.window.rootViewController = nvc;
+        [nvc setViewControllers:[NSArray arrayWithObject:[[HomeViewController alloc] init]]];
     } else {
-        vc = [[LoginViewController alloc] init];
+        self.window.rootViewController = [[LoginViewController alloc] init];
     }
-    
-    [nvc setViewControllers:[NSArray arrayWithObject:vc]];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {

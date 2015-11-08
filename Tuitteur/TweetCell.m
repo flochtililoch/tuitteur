@@ -30,6 +30,10 @@
 - (void)awakeFromNib {
     self.userProfileImage.layer.cornerRadius = 5;
     self.userProfileImage.clipsToBounds = YES;
+
+    UIView *bgColorView = [[UIView alloc] init];
+    bgColorView.backgroundColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:.1];
+    [self setSelectedBackgroundView:bgColorView];
 }
 
 - (void)setTweet:(Tweet *)tweet {
