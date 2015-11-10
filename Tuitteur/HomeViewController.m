@@ -104,7 +104,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat actualPosition = self.tableView.contentOffset.y;
     CGFloat contentHeight = self.tableView.contentSize.height - self.tableView.frame.size.height;
-    if (!self.fetchingData && actualPosition >= contentHeight) {
+    if (!self.fetchingData // Only fetch once at a time
+        && [self.tweets count] >= 15 // Only fetch if there's already some data on screen
+        && actualPosition >= contentHeight) {
         self.fetchingData = YES;
         [self fetchOlderTweetsThan:[self.tweets lastObject]];
     }
@@ -187,10 +189,13 @@
     [Tweet indexForNewerThan:newest
                    olderThan:oldest
                   completion:^(NSArray *tweets, NSError *error) {
-        self.tweets = [self.tweets arrayByAddingObjectsFromArray:tweets];
-        [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-        self.fetchingData = NO;
+                      // Reject 1st object of the array since already present from prev request.
+                      if ([tweets count] > 1) {
+                          self.tweets = [self.tweets arrayByAddingObjectsFromArray:[[tweets subarrayWithRange:NSMakeRange(1, [tweets count] - 1)] arrayByAddingObjectsFromArray:tweets]];
+                      }
+                      [self.refreshControl endRefreshing];
+                      [self.tableView reloadData];
+                      self.fetchingData = NO;
     }];
 }
 

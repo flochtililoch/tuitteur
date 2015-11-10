@@ -57,7 +57,7 @@
     self.likeButton.isOn = self.tweet.liked;
     [self.likeButton update];
     self.likesCountLabel.textColor = self.likeButton.tintColor;
-    if ([self.delegate respondsToSelector:@selector(updateLikes:)]) {
+    if ([self.delegate respondsToSelector:@selector(updateLikes)]) {
         [self.delegate updateLikes];
     }
 }
@@ -77,7 +77,7 @@
     self.retweetButton.enabled = ![self.tweet isOwnedByCurrentUser];
     [self.retweetButton update];
     self.retweetsCountLabel.textColor = self.retweetButton.tintColor;
-    if ([self.delegate respondsToSelector:@selector(updateRetweets:)]) {
+    if ([self.delegate respondsToSelector:@selector(updateRetweets)]) {
         [self.delegate updateRetweets];
     }
 }

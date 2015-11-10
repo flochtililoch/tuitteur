@@ -23,6 +23,7 @@
 @property (nonatomic, assign) NSInteger userRetweetId;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (void)updateWithDictionary:(NSDictionary *)dictionary;
 - (BOOL)isOwnedByCurrentUser;
 - (void)toggleLike;
 - (void)toggleRetweetWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion;

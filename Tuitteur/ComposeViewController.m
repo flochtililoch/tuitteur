@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userScreenNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+@property (strong, nonatomic) UILabel *tweetCharCount;
 
 @end
 
@@ -39,6 +40,7 @@
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
                                                                              action:@selector(onTweet)];
+
     User *currentUser = [User currentUser];
     self.userNameLabel.text = currentUser.name;
     self.userScreenNameLabel.text = currentUser.screenName;
@@ -58,7 +60,7 @@
 }
 
 - (void)updateCharCount {
-    self.title = [NSString stringWithFormat:@"%ld", ([Tweet maxLength] - self.tweet.text.length)];
+    self.tweetCharCount.text = [NSString stringWithFormat:@"%ld", ([Tweet maxLength] - self.tweet.text.length)];
 }
 
 - (void)onCancel {
@@ -96,6 +98,19 @@
 - (void)textViewDidChange:(UITextView *)textView {
     self.tweet.text = textView.text;
     [self updateCharCount];
+}
+
+
+#pragma - Private
+
+- (UILabel *)tweetCharCount {
+    if (!_tweetCharCount) {
+        _tweetCharCount = [[UILabel alloc] initWithFrame:CGRectMake(280,8,50,20)];
+        _tweetCharCount.textColor = [UIColor lightGrayColor];
+        [_tweetCharCount setBackgroundColor:[UIColor clearColor]];
+        [self.navigationController.navigationBar addSubview:_tweetCharCount];
+    }
+    return _tweetCharCount;
 }
 
 @end

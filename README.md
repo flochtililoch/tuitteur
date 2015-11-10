@@ -29,15 +29,16 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='Tuitteur.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
-GIF created with [DropToGif](http://mortenjust.github.io/droptogif/).
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Challenges:
 - Creating re-usable view for common elements such as retweet text or tweet actions buttons.
 - Creating "Compose view" delegate to be implemented by both Home and Tweet views.
+- Dealing with Twitter API rate limitation and quirks (i.e. "user.favourites_count" vs "tweet.favorite_count")
 
 ## License
 

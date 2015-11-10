@@ -22,26 +22,30 @@
     self = [super init];
     if (self) {
         self.identifier = [dictionary[@"id_str"] integerValue];
-        self.createdAt = [[self class] formatDateWithString:dictionary[@"created_at"]];
-        self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
-        self.text = dictionary[@"text"];
-        self.liked = [dictionary[@"favorited"] boolValue];
-        self.likesCount = [dictionary[@"favourites_count"] integerValue];
-        self.retweeted = [dictionary[@"retweeted"] boolValue];
-        self.retweetsCount = [dictionary[@"retweet_count"] integerValue];
-
-        NSDictionary *retweetedStatus = dictionary[@"retweeted_status"];
-        if (retweetedStatus != nil) {
-            self.retweetedFromTweet = [[Tweet alloc] initWithDictionary:retweetedStatus];
-        }
-        
-        NSDictionary *currentUserRetweet = dictionary[@"current_user_retweet"];
-        if (currentUserRetweet != nil) {
-            self.userRetweetId = [currentUserRetweet[@"id_str"] integerValue];
-        }
+        [self updateWithDictionary:dictionary];
     }
     
     return self;
+}
+
+- (void)updateWithDictionary:(NSDictionary *)dictionary {
+    self.createdAt = [[self class] formatDateWithString:dictionary[@"created_at"]];
+    self.user = [[User alloc] initWithDictionary:dictionary[@"user"]];
+    self.text = dictionary[@"text"];
+    self.liked = [dictionary[@"favorited"] boolValue];
+    self.likesCount = [dictionary[@"favorite_count"] integerValue];
+    self.retweeted = [dictionary[@"retweeted"] boolValue];
+    self.retweetsCount = [dictionary[@"retweet_count"] integerValue];
+    
+    NSDictionary *retweetedStatus = dictionary[@"retweeted_status"];
+    if (retweetedStatus != nil) {
+        self.retweetedFromTweet = [[Tweet alloc] initWithDictionary:retweetedStatus];
+    }
+    
+    NSDictionary *currentUserRetweet = dictionary[@"current_user_retweet"];
+    if (currentUserRetweet != nil) {
+        self.userRetweetId = [currentUserRetweet[@"id_str"] integerValue];
+    }
 }
 
 - (BOOL)isOwnedByCurrentUser {
