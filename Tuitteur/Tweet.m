@@ -60,14 +60,16 @@
 
 - (void)toggleLike {
     if (self.liked) {
-        [[TwitterClient sharedInstance] deleteFavoriteWithTweetId:self.identifier errorHandler:^(NSArray *responseObject, NSError *error) {
-            [self like];
-        }];
+        [[TwitterClient sharedInstance] deleteFavoriteWithTweetId:self.identifier
+                                                     errorHandler:^(NSArray *responseObject, NSError *error) {
+                                                         [self like];
+                                                     }];
         [self unlike];
     } else {
-        [[TwitterClient sharedInstance] createFavoriteWithTweetId:self.identifier errorHandler:^(NSArray *responseObject, NSError *error) {
-            [self unlike];
-        }];
+        [[TwitterClient sharedInstance] createFavoriteWithTweetId:self.identifier
+                                                     errorHandler:^(NSArray *responseObject, NSError *error) {
+                                                         [self unlike];
+                                                     }];
         [self like];
     }
 }
@@ -84,18 +86,18 @@
 
 - (void)toggleRetweetWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
     if (!self.retweeted) {
-        [[TwitterClient sharedInstance] createRetweetWithTweetId:self.identifier completion:^(NSDictionary *responseObject, NSError *error) {
-            if (error != nil) {
-                [self unretweet];
-            }
-            
-            Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
-            if (completion != nil) {
-                completion(tweet, error);
-            }
-        }];
+        [[TwitterClient sharedInstance] createRetweetWithTweetId:self.identifier
+                                                      completion:^(NSDictionary *responseObject, NSError *error) {
+                                                          if (error != nil) {
+                                                              [self unretweet];
+                                                          }
+                                                          
+                                                          Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+                                                          if (completion != nil) {
+                                                              completion(tweet, error);
+                                                          }
+                                                      }];
         [self retweet];
-        
     } else {
         Tweet *originalTweet = self.retweetedFromTweet ? self.retweetedFromTweet : self;
         [originalTweet getWithCompletion:^(Tweet *tweet, NSError *error) {
@@ -114,76 +116,67 @@
 
 - (void)replyToTweet:(Tweet *)tweet completion:(void (^)(Tweet *tweet, NSError *error))completion {
     completion(self, nil);
-    [[TwitterClient sharedInstance] createTweetWithText:self.text inResponseToTweet:tweet.identifier completion:^(NSDictionary *responseObject, NSError *error) {
-        if (!error) {
-            self.identifier = [responseObject[@"id_str"] integerValue];
-        }
-    }];
+    [[TwitterClient sharedInstance] createTweetWithText:self.text
+                                      inResponseToTweet:tweet.identifier
+                                             completion:^(NSDictionary *responseObject, NSError *error) {
+                                                 if (!error) {
+                                                     self.identifier = [responseObject[@"id_str"] integerValue];
+                                                 }
+                                             }];
 }
 
 - (void)createWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
     completion(self, nil);
-    [[TwitterClient sharedInstance] createTweetWithText:self.text completion:^(NSDictionary *responseObject, NSError *error) {
-        if (!error) {
-            self.identifier = [responseObject[@"id_str"] integerValue];
-        }
-    }];
+    [[TwitterClient sharedInstance] createTweetWithText:self.text
+                                             completion:^(NSDictionary *responseObject, NSError *error) {
+                                                 if (!error) {
+                                                     self.identifier = [responseObject[@"id_str"] integerValue];
+                                                 }
+                                             }];
 }
 
 - (void)getWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
-    [[TwitterClient sharedInstance] getTweetWithTweetId:self.identifier completion:^(NSDictionary *responseObject, NSError *error) {
-        Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
-        completion(tweet, error);
-    }];
+    [[TwitterClient sharedInstance] getTweetWithTweetId:self.identifier
+                                             completion:^(NSDictionary *responseObject, NSError *error) {
+                                                 Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+                                                 completion(tweet, error);
+                                             }];
 }
 
 - (void)deleteWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion {
     NSInteger deleteTweetId = [self isOwnedByCurrentUser] ? self.identifier : self.userRetweetId;
-    [[TwitterClient sharedInstance] deleteTweetWithTweetId:deleteTweetId completion:^(NSDictionary *responseObject, NSError *error) {
-        if(error != nil) {
-            completion(nil, error);
-        } else {
-            Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
-            completion(tweet, error);
-        }
-    }];
+    [[TwitterClient sharedInstance] deleteTweetWithTweetId:deleteTweetId
+                                                completion:^(NSDictionary *responseObject, NSError *error) {
+                                                    if(error != nil) {
+                                                        completion(nil, error);
+                                                    } else {
+                                                        Tweet *tweet = [[Tweet alloc] initWithDictionary:responseObject];
+                                                        completion(tweet, error);
+                                                    }
+                                                }];
 }
 
-+ (void)indexWithCompletion:(void (^)(NSArray *tweets, NSError *error))completion {
-    [[TwitterClient sharedInstance] getTweetsWithParams:nil completion:^(NSArray *responseObject, NSError *error) {
-        NSMutableArray *tweets = [NSMutableArray array];
-        for (NSDictionary *tweetDictionary in responseObject) {
-            [tweets addObject:[[Tweet alloc] initWithDictionary:tweetDictionary]];
-        }
-        completion(tweets, error);
-    }];
++ (void)indexForNewerThan:(Tweet *)newest olderThan:(Tweet *)oldest completion:(void (^)(NSArray *tweets, NSError *error))completion {
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    if (newest != nil) {
+        params[@"since_id"] = @(newest.identifier);
+    }
+    if (oldest != nil) {
+        params[@"max_id"] = @(oldest.identifier);
+    }
+    [[TwitterClient sharedInstance] getTweetsWithParams:params
+                                             completion:^(NSArray *responseObject, NSError *error) {
+                                                 NSMutableArray *tweets = [NSMutableArray array];
+                                                 for (NSDictionary *tweetDictionary in responseObject) {
+                                                     [tweets addObject:[[Tweet alloc] initWithDictionary:tweetDictionary]];
+                                                 }
+                                                 completion(tweets, error);
+                                             }];
 }
-
-+ (void)indexForOlderThan:(Tweet *)tweet completion:(void (^)(NSArray *tweets, NSError *error))completion {
-    [[TwitterClient sharedInstance] getTweetsWithParams:@{@"max_id":@(tweet.identifier)} completion:^(NSArray *responseObject, NSError *error) {
-        NSMutableArray *tweets = [NSMutableArray array];
-        for (NSDictionary *tweetDictionary in responseObject) {
-            [tweets addObject:[[Tweet alloc] initWithDictionary:tweetDictionary]];
-        }
-        completion(tweets, error);
-    }];
-}
-
-+ (void)indexForNewerThan:(Tweet *)tweet completion:(void (^)(NSArray *tweets, NSError *error))completion {
-    [[TwitterClient sharedInstance] getTweetsWithParams:@{@"since_id":@(tweet.identifier)} completion:^(NSArray *responseObject, NSError *error) {
-        NSMutableArray *tweets = [NSMutableArray array];
-        for (NSDictionary *tweetDictionary in responseObject) {
-            [tweets addObject:[[Tweet alloc] initWithDictionary:tweetDictionary]];
-        }
-        completion(tweets, error);
-    }];
-}
-
 
 + (Tweet *)factory {
     Tweet *tweet = [[Tweet alloc] init];
     tweet.createdAt = [[NSDate alloc] init];
-    tweet.user = [User currentUser];
     tweet.text = @"";
     tweet.liked = NO;
     tweet.likesCount = 0;
@@ -203,6 +196,5 @@ static NSInteger maxLength = 140;
 + (NSInteger)maxLength {
     return maxLength;
 }
-
 
 @end

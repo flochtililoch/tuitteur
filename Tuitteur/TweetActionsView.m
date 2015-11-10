@@ -30,7 +30,7 @@
 }
 
 - (IBAction)onReplyButton:(id)sender {
-    [self.delegate replyToTweet:self.tweet];
+    [self.delegate shouldReplyToTweet:self.tweet];
 }
 
 - (IBAction)onRetweetButton:(id)sender {

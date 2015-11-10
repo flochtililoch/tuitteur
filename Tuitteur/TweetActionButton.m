@@ -7,6 +7,7 @@
 //
 
 #import "TweetActionButton.h"
+#import "UIColor+TwitterColors.h"
 
 @implementation TweetActionButton
 
@@ -35,19 +36,19 @@
 }
 
 + (UIColor *)color {
-    return [UIColor colorWithRed:0.67 green:0.72 blue:0.76 alpha:1.0];
+    return [UIColor twitterActionButtonColor];
 }
 
 + (UIColor *)pressedColor {
-    return [UIColor colorWithRed:0.67 green:0.72 blue:0.76 alpha:.5];
+    return [UIColor twitterActionButtonColorWithAlpha:.5];
 }
 
 + (UIColor *)onColor {
-    return [UIColor colorWithRed:0.10 green:0.81 blue:0.53 alpha:1.0];
+    return [UIColor twitterActionButtonOnColor];
 }
 
 + (UIColor *)onPressedColor {
-    return [UIColor colorWithRed:0.10 green:0.81 blue:0.53 alpha:.5];
+    return [UIColor twitterActionButtonOnColorWithAlpha:.5];
 }
 
 @end

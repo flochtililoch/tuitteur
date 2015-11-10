@@ -79,6 +79,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
 #pragma - UITextFieldDelegate
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
@@ -96,6 +97,5 @@
     self.tweet.text = textView.text;
     [self updateCharCount];
 }
-
 
 @end

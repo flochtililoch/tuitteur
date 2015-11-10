@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01EA405DB78A47A55F1FC848 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB9E8D225FD9D9A892E5F02E /* libPods.a */; };
+		4A81B7721BF1A2D100ABD1C5 /* UIColor+TwitterColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A81B7711BF1A2D100ABD1C5 /* UIColor+TwitterColors.m */; };
 		4AB6714D1BE9A94000F893C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6714C1BE9A94000F893C9 /* main.m */; };
 		4AB671501BE9A94000F893C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6714F1BE9A94000F893C9 /* AppDelegate.m */; };
 		4AB671581BE9A94000F893C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AB671571BE9A94000F893C9 /* Assets.xcassets */; };
@@ -40,6 +41,8 @@
 
 /* Begin PBXFileReference section */
 		1DADDB6B38BA4376E15D4AA8 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		4A81B7701BF1A2D100ABD1C5 /* UIColor+TwitterColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+TwitterColors.h"; sourceTree = "<group>"; };
+		4A81B7711BF1A2D100ABD1C5 /* UIColor+TwitterColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+TwitterColors.m"; sourceTree = "<group>"; };
 		4AB671481BE9A94000F893C9 /* Tuitteur.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tuitteur.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB6714C1BE9A94000F893C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4AB6714E1BE9A94000F893C9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -235,6 +238,8 @@
 				4AEB3E431BEB2F360040C221 /* UIImageView+FadeIn.m */,
 				4ACC8A631BF00DCC003388B8 /* UINavigationBar+CustomHeight.h */,
 				4ACC8A641BF00DCC003388B8 /* UINavigationBar+CustomHeight.m */,
+				4A81B7701BF1A2D100ABD1C5 /* UIColor+TwitterColors.h */,
+				4A81B7711BF1A2D100ABD1C5 /* UIColor+TwitterColors.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -377,6 +382,7 @@
 				4AB671761BE9E73500F893C9 /* HomeViewController.m in Sources */,
 				4ACC8A601BEFB28D003388B8 /* RetweetedView.m in Sources */,
 				4AB6714D1BE9A94000F893C9 /* main.m in Sources */,
+				4A81B7721BF1A2D100ABD1C5 /* UIColor+TwitterColors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

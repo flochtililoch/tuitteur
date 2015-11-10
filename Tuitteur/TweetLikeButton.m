@@ -7,15 +7,16 @@
 //
 
 #import "TweetLikeButton.h"
+#import "UIColor+TwitterColors.h"
 
 @implementation TweetLikeButton
 
 + (UIColor *)onColor {
-    return [UIColor colorWithRed:0.91 green:0.11 blue:0.31 alpha:1.0];
+    return [UIColor twitterLikeActionButtonOnColor];
 }
 
 + (UIColor *)onPressedColor {
-    return [UIColor colorWithRed:0.91 green:0.11 blue:0.31 alpha:.5];
+    return [UIColor twitterLikeActionButtonOnColorWithAlpha:.5];
 }
 
 @end

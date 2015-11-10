@@ -7,6 +7,7 @@
 //
 
 #import "HomeViewController.h"
+#import "UIColor+TwitterColors.h"
 #import "NavigationViewController.h"
 #import "TweetViewController.h"
 #import "ComposeViewController.h"
@@ -25,6 +26,7 @@
 
 // State
 @property (nonatomic, strong) NSArray *tweets;
+@property (nonatomic, assign) BOOL fetchingData;
 
 @end
 
@@ -60,7 +62,8 @@
                   forControlEvents:UIControlEventValueChanged];
     
     // Results
-    [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil] forCellReuseIdentifier:@"tweetCell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"TweetCell" bundle:nil]
+         forCellReuseIdentifier:@"tweetCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.estimatedRowHeight = 125.0;
     [self fetchTweets];
@@ -101,9 +104,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat actualPosition = self.tableView.contentOffset.y;
     CGFloat contentHeight = self.tableView.contentSize.height - self.tableView.frame.size.height;
-    if (actualPosition >= contentHeight) {
-// TODO: Restrict # of search per scroll
-//        [self fetchOlderTweetsThan:[self.tweets lastObject]];
+    if (!self.fetchingData && actualPosition >= contentHeight) {
+        self.fetchingData = YES;
+        [self fetchOlderTweetsThan:[self.tweets lastObject]];
     }
 }
 
@@ -124,8 +127,10 @@
 
 #pragma - TweetActionsDelegate
 
-- (void)replyToTweet:(Tweet *)tweet {
-    [self presentComposeTweetViewWithTweet:[Tweet factory] inResponseToTweet:tweet];
+- (void)shouldReplyToTweet:(Tweet *)tweet {
+    Tweet *responseTweet = [Tweet factory];
+    responseTweet.user = [User currentUser];
+    [self presentComposeTweetViewWithTweet:responseTweet inResponseToTweet:tweet];
 }
 
 
@@ -136,8 +141,8 @@
 - (UIRefreshControl *)refreshControl {
     if(!_refreshControl) {
         _refreshControl = [[UIRefreshControl alloc] init];
-        _refreshControl.backgroundColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:.1];
-        _refreshControl.tintColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:1];
+        _refreshControl.backgroundColor = [UIColor twitterAccentColorWithAlpha:.1];
+        _refreshControl.tintColor = [UIColor twitterAccentColor];
         [_tableView addSubview:_refreshControl];
     }
     return _refreshControl;
@@ -148,7 +153,9 @@
 }
 
 - (void)onCompose {
-    [self presentComposeTweetViewWithTweet:[Tweet factory]];
+    Tweet *newTweet = [Tweet factory];
+    newTweet.user = [User currentUser];
+    [self presentComposeTweetViewWithTweet:newTweet];
 }
 
 
@@ -167,29 +174,23 @@
 }
 
 - (void)fetchTweets {
-    [self.refreshControl beginRefreshing];
-    [Tweet indexWithCompletion:^(NSArray *tweets, NSError *error) {
-        self.tweets = tweets;
-        [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-    }];
+    [self fetchTweetsNewerThan:nil olderThan:nil];
 }
 
 - (void)fetchOlderTweetsThan:(Tweet *)tweet {
-    [self.refreshControl beginRefreshing];
-    [Tweet indexForOlderThan:(Tweet *)tweet completion:^(NSArray *tweets, NSError *error) {
-        self.tweets = [self.tweets arrayByAddingObjectsFromArray:tweets];
-        [self.refreshControl endRefreshing];
-        [self.tableView reloadData];
-    }];
+    [self fetchTweetsNewerThan:nil olderThan:tweet];
 }
 
-- (void)fetchNewerTweetsThan:(Tweet *)tweet {
+- (void)fetchTweetsNewerThan:(Tweet *)newest olderThan:(Tweet *)oldest {
+    self.fetchingData = YES;
     [self.refreshControl beginRefreshing];
-    [Tweet indexForNewerThan:(Tweet *)tweet completion:^(NSArray *tweets, NSError *error) {
+    [Tweet indexForNewerThan:newest
+                   olderThan:oldest
+                  completion:^(NSArray *tweets, NSError *error) {
         self.tweets = [self.tweets arrayByAddingObjectsFromArray:tweets];
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];
+        self.fetchingData = NO;
     }];
 }
 

@@ -26,12 +26,13 @@
 - (BOOL)isOwnedByCurrentUser;
 - (void)toggleLike;
 - (void)toggleRetweetWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion;
-- (void)replyToTweet:(Tweet *)tweet completion:(void (^)(Tweet *tweet, NSError *error))completion;
+- (void)replyToTweet:(Tweet *)tweet
+          completion:(void (^)(Tweet *tweet, NSError *error))completion;
 - (void)createWithCompletion:(void (^)(Tweet *tweet, NSError *error))completion;
 
-+ (void)indexWithCompletion:(void (^)(NSArray *tweets, NSError *error))completion;
-+ (void)indexForOlderThan:(Tweet *)tweet completion:(void (^)(NSArray *tweets, NSError *error))completion;
-+ (void)indexForNewerThan:(Tweet *)tweet completion:(void (^)(NSArray *tweets, NSError *error))completion;
++ (void)indexForNewerThan:(Tweet *)newest
+                olderThan:(Tweet *)oldest
+               completion:(void (^)(NSArray *tweets, NSError *error))completion;
 + (Tweet *)factory;
 + (NSInteger)maxLength;
 

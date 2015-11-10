@@ -11,7 +11,7 @@
 
 @protocol TweetActionsDelegate <NSObject>
 
-- (void)replyToTweet:(Tweet *)tweet;
+- (void)shouldReplyToTweet:(Tweet*)tweet;
 
 @optional
 

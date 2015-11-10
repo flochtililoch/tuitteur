@@ -40,6 +40,10 @@
     [super viewDidLoad];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reply"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(replyToTweet)];
     
     [self updateTweet];
     [self renderActionsView];
@@ -51,8 +55,10 @@
 
 #pragma - TweetActionsDelegate
 
-- (void)replyToTweet:(Tweet *)tweet {
-    [self presentComposeTweetViewWithTweet:[Tweet factory] inResponseToTweet:tweet];
+- (void)shouldReplyToTweet:(Tweet *)tweet {
+    Tweet *responseTweet = [Tweet factory];
+    responseTweet.user = [User currentUser];
+    [self presentComposeTweetViewWithTweet:responseTweet inResponseToTweet:tweet];
 }
 
 
@@ -64,6 +70,10 @@
 
 
 #pragma - Private
+
+- (void)replyToTweet {
+    [self shouldReplyToTweet:self.tweet];
+}
 
 - (void)updateTweet {
     Tweet *tweet = self.tweet;
