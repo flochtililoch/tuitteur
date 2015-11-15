@@ -33,6 +33,7 @@
 
 + (void)indexForNewerThan:(Tweet *)newest
                 olderThan:(Tweet *)oldest
+              forMentions:(BOOL)isMentionsTimeline
                completion:(void (^)(NSArray *tweets, NSError *error))completion;
 + (Tweet *)factory;
 + (NSInteger)maxLength;

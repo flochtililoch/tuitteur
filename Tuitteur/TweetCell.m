@@ -10,6 +10,7 @@
 #import "RetweetedView.h"
 #import "TweetActionButton.h"
 #import "UIImageView+FadeIn.h"
+#import "UIColor+TwitterColors.h"
 #import "NSDate+DateTools.h"
 
 @interface TweetCell ()
@@ -32,8 +33,14 @@
     self.userProfileImage.clipsToBounds = YES;
 
     UIView *bgColorView = [[UIView alloc] init];
-    bgColorView.backgroundColor = [UIColor colorWithRed:0.33 green:0.67 blue:0.93 alpha:.1];
+    bgColorView.backgroundColor = [UIColor twitterAccentColorWithAlpha:.1];
     [self setSelectedBackgroundView:bgColorView];
+    
+    // http://stackoverflow.com/questions/19124922/uicollectionview-adding-single-tap-gesture-recognizer-to-supplementary-view
+    UITapGestureRecognizer *userProfileImageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onUserProfileImageTap:)];
+    userProfileImageTap.delaysTouchesBegan = YES;
+    userProfileImageTap.numberOfTapsRequired = 1;
+    [self.userProfileImage addGestureRecognizer:userProfileImageTap];
 }
 
 - (void)setTweet:(Tweet *)tweet {
@@ -87,5 +94,16 @@
     view.tweet = self.tweet;
     [self.actionsView addSubview:view];
 }
+
+- (IBAction)onUserProfileImageTap:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(profilePictureWasTappedForUser:)]) {
+        User *user = self.tweet.user;
+        if (self.tweet.retweetedFromTweet != nil) {
+            user = self.tweet.retweetedFromTweet.user;
+        }
+        [self.delegate profilePictureWasTappedForUser:user];
+    }
+}
+
 
 @end

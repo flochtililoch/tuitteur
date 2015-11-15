@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TuitteurViewController.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : TuitteurViewController
+
+@property (nonatomic, assign) id<TuitteurViewControllerDelegate> delegate;
+@property (nonatomic, assign) BOOL isMentionsTimeline;
 
 @end

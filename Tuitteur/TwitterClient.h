@@ -16,6 +16,7 @@
 - (void)completeAuthWithQueryString:(NSString *)query;
 
 - (void)getTweetsWithParams:(NSDictionary *)params
+                forMentions:(BOOL)isMentionsTimeline
                  completion:(void (^)(NSArray *responseObject, NSError *error))completion;
 - (void)createTweetWithText:(NSString *)text
                  completion:(void (^)(NSDictionary *responseObject, NSError *error))completion;

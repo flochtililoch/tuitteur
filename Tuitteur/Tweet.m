@@ -160,7 +160,7 @@
                                                 }];
 }
 
-+ (void)indexForNewerThan:(Tweet *)newest olderThan:(Tweet *)oldest completion:(void (^)(NSArray *tweets, NSError *error))completion {
++ (void)indexForNewerThan:(Tweet *)newest olderThan:(Tweet *)oldest forMentions:(BOOL)isMentionsTimeline completion:(void (^)(NSArray *tweets, NSError *error))completion {
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     if (newest != nil) {
         params[@"since_id"] = @(newest.identifier);
@@ -169,6 +169,7 @@
         params[@"max_id"] = @(oldest.identifier);
     }
     [[TwitterClient sharedInstance] getTweetsWithParams:params
+                                            forMentions:isMentionsTimeline
                                              completion:^(NSArray *responseObject, NSError *error) {
                                                  NSMutableArray *tweets = [NSMutableArray array];
                                                  for (NSDictionary *tweetDictionary in responseObject) {

@@ -21,9 +21,10 @@
                             <constraint firstAttribute="height" constant="16" id="gCc-7l-mx0"/>
                         </constraints>
                     </view>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jA3-th-MOe">
+                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jA3-th-MOe">
                         <rect key="frame" x="16" y="30" width="48" height="48"/>
                         <animations/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="Gtk-Nr-GUV"/>
                             <constraint firstAttribute="width" constant="48" id="QTC-PJ-6go"/>

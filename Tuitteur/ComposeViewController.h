@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TuitteurViewController.h"
 #import "Tweet.h"
 
 @protocol ComposeTweetDelegate <NSObject>
@@ -15,10 +16,10 @@
 
 @end
 
-@interface ComposeViewController : UIViewController
+@interface ComposeViewController : TuitteurViewController
 
 @property (nonatomic, strong) Tweet *tweet;
 @property (nonatomic, strong) Tweet *originalTweet;
-@property (nonatomic, assign) id<ComposeTweetDelegate> delegate;
+@property (nonatomic, assign) id<ComposeTweetDelegate, TuitteurViewControllerDelegate> delegate;
 
 @end

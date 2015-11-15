@@ -4,7 +4,9 @@
 
 Time spent: **25** hours spent in total
 
-## User Stories
+## Week 3
+
+### User Stories
 
 The following **required** functionality is completed:
 
@@ -25,13 +27,53 @@ The following **optional** features are implemented:
 - [X] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
 - [X] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
 
-## Video Walkthrough
+### Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
 <img src='Tuitteur.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+## Week 4
+
+### User Stories
+
+The following **required** functionality is completed:
+
+- [X] Hamburger menu
+   - [X] Dragging anywhere in the view should reveal the menu.
+   - [X] The menu should include links to your profile, the home timeline, and the mentions view.
+   - [X] The menu can look similar to the LinkedIn menu below or feel free to take liberty with the UI.
+- [X] Profile page
+   - [X] Contains the user header view
+   - [X] Contains a section with the users basic stats: # tweets, # following, # followers
+- [X] Home Timeline
+   - [X] Tapping on a user image should bring up that user's profile page
+
+The following **optional** features are implemented:
+
+- [ ] Profile Page
+   - [ ] Implement the paging view for the user description.
+   - [ ] As the paging view moves, increase the opacity of the background screen. See the actual Twitter app for this effect
+   - [ ] Pulling down the profile page should blur and resize the header image.
+- [ ] Account switching
+   - [ ] Long press on tab bar to bring up Account view with animation
+   - [ ] Tap account to switch to
+   - [ ] Include a plus button to Add an Account
+   - [ ] Swipe to delete an account
+
+The following **additional** features are implemented:
+
+- [X] Tapping on a user image anywhere in the app should bring up that user's profile page
+- [X] Hamburger menu
+  - [X] Opening the menu should fade out the main screen. Tapping anywhere on the main screen while menu is open should close the menu.
+
+### Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 ## Notes
 

@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "HamburgerViewController.h"
+#import "MenuViewController.h"
 #import "NavigationViewController.h"
 #import "LoginViewController.h"
 #import "HomeViewController.h"
@@ -30,9 +32,16 @@
 - (void)currentUserDidChange {
 
     if ([User currentUser] != nil) {
-        UINavigationController *nvc = [[NavigationViewController alloc] init];
-        self.window.rootViewController = nvc;
-        [nvc setViewControllers:[NSArray arrayWithObject:[[HomeViewController alloc] init]]];
+        HamburgerViewController *hamburgerViewController = [[HamburgerViewController alloc] init];
+
+        MenuViewController *vcMenu = [[MenuViewController alloc] init];
+        vcMenu.hamburgerViewController = hamburgerViewController;
+        NavigationViewController *nvcMenu = [[NavigationViewController alloc] init];
+        [nvcMenu setViewControllers:[NSArray arrayWithObject:vcMenu]];
+        
+        hamburgerViewController.menuViewController = nvcMenu;
+        
+        self.window.rootViewController = hamburgerViewController;
     } else {
         self.window.rootViewController = [[LoginViewController alloc] init];
     }

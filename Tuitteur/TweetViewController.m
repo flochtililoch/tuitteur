@@ -9,6 +9,7 @@
 #import "TweetViewController.h"
 #import "NavigationViewController.h"
 #import "ComposeViewController.h"
+#import "ProfileViewController.h"
 #import "UIImageView+FadeIn.h"
 #import "TweetActionButton.h"
 #import "TweetLikeButton.h"
@@ -142,6 +143,16 @@
     vc.originalTweet = originalTweet;
     NavigationViewController *nvc = [[NavigationViewController alloc] initWithRootViewController:vc];
     [self presentViewController:nvc animated:YES completion:nil];
+}
+
+- (IBAction)onUserProfileImageTap:(UITapGestureRecognizer *)sender {
+    ProfileViewController *vc = [[ProfileViewController alloc] init];
+    User *user = self.tweet.user;
+    if (self.tweet.retweetedFromTweet != nil) {
+        user = self.tweet.retweetedFromTweet.user;
+    }
+    vc.user = user;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

@@ -5,9 +5,9 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MenuViewController">
             <connections>
-                <outlet property="tableView" destination="m32-zp-Max" id="NS0-0N-PKj"/>
+                <outlet property="tableView" destination="HEe-5B-xwM" id="gmu-1x-Mbc"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -16,21 +16,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="m32-zp-Max">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HEe-5B-xwM">
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="568"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="tGA-dv-KEN"/>
+                    </constraints>
                 </tableView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="1" green="0.96382872139999998" blue="0.1092212867" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="m32-zp-Max" secondAttribute="trailing" id="K5Q-fr-0X8"/>
-                <constraint firstAttribute="bottom" secondItem="m32-zp-Max" secondAttribute="bottom" id="bGg-L4-FDL"/>
-                <constraint firstItem="m32-zp-Max" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="f4s-GA-Mgv"/>
-                <constraint firstItem="m32-zp-Max" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="jRf-du-mMa"/>
+                <constraint firstItem="HEe-5B-xwM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Itt-ck-fpl"/>
+                <constraint firstItem="HEe-5B-xwM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="J4Y-Sq-kSL"/>
+                <constraint firstAttribute="bottom" secondItem="HEe-5B-xwM" secondAttribute="bottom" id="sSl-PV-1YF"/>
             </constraints>
-            <point key="canvasLocation" x="408" y="378"/>
+            <point key="canvasLocation" x="286" y="378"/>
         </view>
     </objects>
 </document>

@@ -27,6 +27,14 @@ NSString * const kCurrentUserDidChangeNotification = @"UserDidLoginNotification"
         self.name = dictionary[@"name"];
         self.screenName = [@"@" stringByAppendingString:dictionary[@"screen_name"]];
         self.profileImageUrl = [NSURL URLWithString:dictionary[@"profile_image_url"]];
+        self.profileBannerUrl = [NSURL URLWithString:dictionary[@"profile_banner_url"]];
+        self.verified = dictionary[@"verified"];
+        self.tagline = dictionary[@"description"];
+        self.displayUrl = dictionary[@"entities"][@"url"][@"urls"][0][@"display_url"];
+        self.url = [NSURL URLWithString: dictionary[@"entities"][@"url"][@"urls"][0][@"expanded_url"]];
+        self.followersCount = dictionary[@"followers_count"];
+        self.followingCount = dictionary[@"friends_count"];
+        self.tweetsCount = dictionary[@"statuses_count"];
     }
     
     return self;

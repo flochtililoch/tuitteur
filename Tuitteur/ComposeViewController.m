@@ -23,24 +23,14 @@
 
 @implementation ComposeViewController
 
+@dynamic delegate;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.tweetTextView.delegate = self;
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    // Navigation
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(onCancel)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.originalTweet == nil ?@"Tweet" : @"Reply"
-                                                                              style:UIBarButtonItemStylePlain
-                                                                             target:self
-                                                                             action:@selector(onTweet)];
-
     User *currentUser = [User currentUser];
     self.userNameLabel.text = currentUser.name;
     self.userScreenNameLabel.text = currentUser.screenName;
@@ -111,6 +101,20 @@
         [self.navigationController.navigationBar addSubview:_tweetCharCount];
     }
     return _tweetCharCount;
+}
+
+- (void)setupNavigation {
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(onCancel)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:self.originalTweet == nil ?@"Tweet" : @"Reply"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(onTweet)];
+    
+    [super setupNavigation];
 }
 
 @end

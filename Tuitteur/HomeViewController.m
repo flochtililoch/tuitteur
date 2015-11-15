@@ -11,12 +11,13 @@
 #import "NavigationViewController.h"
 #import "TweetViewController.h"
 #import "ComposeViewController.h"
+#import "ProfileViewController.h"
 #import "TweetActionsView.h"
 #import "TweetCell.h"
 #import "User.h"
 #import "Tweet.h"
 
-@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, ComposeTweetDelegate, TweetActionsDelegate, TweetViewControllerDelegate>
+@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate, ComposeTweetDelegate, TweetActionsDelegate, TweetViewControllerDelegate, TweetCellDelegate>
 
 // IBOutlets
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
@@ -32,6 +33,8 @@
 
 @implementation HomeViewController
 
+@dynamic delegate;
+
 
 #pragma - UIViewController
 
@@ -43,13 +46,6 @@
     self.tableView.dataSource = self;
 
     // Navigation
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"title"]];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"logout"]
-                                                               landscapeImagePhone:nil
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(onLogout)];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"compose"]
                                                                 landscapeImagePhone:nil
                                                                               style:UIBarButtonItemStylePlain
@@ -136,6 +132,15 @@
 }
 
 
+#pragma - TweetCellDelegate
+
+- (void)profilePictureWasTappedForUser:(User*)user {
+    ProfileViewController *vc = [[ProfileViewController alloc] init];
+    vc.user = user;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
 #pragma - User Actions
 
 // http://www.appcoda.com/pull-to-refresh-uitableview-empty/
@@ -148,10 +153,6 @@
         [_tableView addSubview:_refreshControl];
     }
     return _refreshControl;
-}
-
-- (void)onLogout {
-    [[User currentUser] logout];
 }
 
 - (void)onCompose {
@@ -188,6 +189,7 @@
     [self.refreshControl beginRefreshing];
     [Tweet indexForNewerThan:newest
                    olderThan:oldest
+                 forMentions:self.isMentionsTimeline
                   completion:^(NSArray *tweets, NSError *error) {
                       // Reject 1st object of the array since already present from prev request.
                       if ([tweets count] > 1) {

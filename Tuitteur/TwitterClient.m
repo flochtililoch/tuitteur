@@ -16,13 +16,14 @@ NSString * const kTwitterOauthAuthorizeUrlString = @"https://api.twitter.com/oau
 
 NSString * const kTwitterApiBaseUrl = @"https://api.twitter.com";
 NSString * const kTwitterApiUserShowUrl = @"1.1/account/verify_credentials.json";
-NSString * const kTwitterApiTweetIndexUrl = @"1.1/statuses/home_timeline.json";
 NSString * const kTwitterApiTweetCreateUrl = @"1.1/statuses/update.json";
 NSString * const kTwitterApiTweetShowUrl = @"1.1/statuses/show/%ld.json?include_my_retweet=1";
 NSString * const kTwitterApiTweetDestroyUrl = @"1.1/statuses/destroy/%ld.json";
 NSString * const kTwitterApiRetweetCreateUrl = @"1.1/statuses/retweet/%ld.json";
 NSString * const kTwitterApiFavoriteCreateUrl = @"/1.1/favorites/create.json";
 NSString * const kTwitterApiFavoriteDestroyUrl = @"/1.1/favorites/destroy.json";
+NSString * const kTwitterApiHomeTimelineUrl = @"1.1/statuses/home_timeline.json";
+NSString * const kTwitterApiMentionsTimelineUrl = @"1.1/statuses/mentions_timeline.json";
 
 
 @interface TwitterClient ()
@@ -86,8 +87,10 @@ NSString * const kTwitterApiFavoriteDestroyUrl = @"/1.1/favorites/destroy.json";
                            }];
 }
 
-- (void)getTweetsWithParams:(NSDictionary *)params completion:(void (^)(NSArray *responseObject, NSError *error))completion {
-    [self GET:kTwitterApiTweetIndexUrl
+- (void)getTweetsWithParams:(NSDictionary *)params forMentions:(BOOL)isMentionsTimeline completion:(void (^)(NSArray *responseObject, NSError *error))completion {
+    NSString *endpoint = isMentionsTimeline ? kTwitterApiMentionsTimelineUrl : kTwitterApiHomeTimelineUrl;
+    
+    [self GET:endpoint
    parameters:params
       success:^(AFHTTPRequestOperation *operation, NSArray *responseObject) {
           completion(responseObject, nil);

@@ -10,9 +10,15 @@
 #import "Tweet.h"
 #import "TweetActionsView.h"
 
+@protocol TweetCellDelegate <NSObject>
+
+- (void)profilePictureWasTappedForUser:(User*)user;
+
+@end
+
 @interface TweetCell : UITableViewCell
 
 @property (nonatomic, strong) Tweet *tweet;
-@property (nonatomic, assign) id<TweetActionsDelegate> delegate;
+@property (nonatomic, assign) id<TweetActionsDelegate, TweetCellDelegate> delegate;
 
 @end

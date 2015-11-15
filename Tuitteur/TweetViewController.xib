@@ -32,13 +32,17 @@
                         <constraint firstAttribute="height" constant="20" id="qaz-Vi-eRZ"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bqR-yK-Xt6">
+                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bqR-yK-Xt6">
                     <rect key="frame" x="8" y="27" width="48" height="48"/>
                     <animations/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="width" constant="48" id="2Xs-k1-Xw4"/>
                         <constraint firstAttribute="height" constant="48" id="X7n-Sp-Fjh"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Kxz-HE-t4J" appends="YES" id="e9Q-ro-hBw"/>
+                    </connections>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="TopLeft" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1J-Je-c7W">
                     <rect key="frame" x="8" y="83" width="304" height="62.5"/>
@@ -162,5 +166,10 @@
             </constraints>
             <point key="canvasLocation" x="369" y="401"/>
         </view>
+        <tapGestureRecognizer id="Kxz-HE-t4J">
+            <connections>
+                <action selector="onUserProfileImageTap:" destination="-1" id="BEg-sV-nuI"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
 </document>
