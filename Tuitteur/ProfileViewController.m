@@ -37,6 +37,7 @@
     self.profileImageView.clipsToBounds = YES;
     [self.profileImageView fadeInWithUrl:self.user.profileImageUrl
                               errorImage:nil placeholderImage:nil];
+    [self.backgroundImageView setAlpha:1];
     [self.backgroundImageView fadeInWithUrl:self.user.profileBannerUrl errorImage:nil placeholderImage:nil];
     
     // Profile Details
@@ -48,6 +49,10 @@
     self.followersCountLabel.text = [[self class] numberWithShortcut:self.user.followersCount];
     self.followingCountLabel.text = [[self class] numberWithShortcut:self.user.followingCount];
     self.tweetsCountLabel.text = [[self class] numberWithShortcut:self.user.tweetsCount];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.backgroundImageView setAlpha:0];
 }
 
 - (IBAction)onUrlButtonTap:(id)sender {
