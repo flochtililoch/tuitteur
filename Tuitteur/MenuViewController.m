@@ -10,7 +10,7 @@
 #import "HamburgerViewController.h"
 #import "TuitteurViewController.h"
 #import "HomeViewController.h"
-#import "ProfileViewController.h"
+#import "ProfileDetailsViewController.h"
 #import "ComposeViewController.h"
 #import "MenuCell.h"
 #import "UIImageView+FadeIn.h"
@@ -124,7 +124,7 @@
 
 - (UIImageView *)profileView {
     if (!_profileView) {
-        _profileView = [[UIImageView alloc] initWithFrame:CGRectMake(82, -5, 40, 40)];
+        _profileView = [[UIImageView alloc] initWithFrame:CGRectMake(82, 0, 35, 35)];
         _profileView.layer.cornerRadius = 5;
         _profileView.layer.borderWidth = 1;
         _profileView.layer.borderColor = [UIColor whiteColor].CGColor;
@@ -158,7 +158,7 @@
 
 - (void)initProfileViewController {
     self.nvcProfile = [[NavigationViewController alloc] init];
-    ProfileViewController *vcProfile = [[ProfileViewController alloc] init];
+    ProfileDetailsViewController *vcProfile = [[ProfileDetailsViewController alloc] init];
     vcProfile.user = [User currentUser];
     vcProfile.delegate = self;
     [self.nvcProfile setViewControllers:[NSArray arrayWithObject:vcProfile]];

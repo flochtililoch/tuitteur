@@ -46,7 +46,16 @@
     }
     
     self.tweetTextView.text = defaultText;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.tweetTextView becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.tweetTextView resignFirstResponder];
 }
 
 - (void)updateCharCount {
@@ -67,7 +76,6 @@
 }
 
 - (void)leave {
-    [self.tweetTextView resignFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

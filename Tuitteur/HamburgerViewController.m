@@ -88,6 +88,7 @@ const NSInteger kMenuWidth = 140;
 - (void)setContentViewController:(NavigationViewController *)navigationViewController {
     _contentViewController = navigationViewController;
     [self.view layoutIfNeeded];
+    [[[self.contentView subviews] firstObject] removeFromSuperview];
     [self.contentView addSubview:navigationViewController.view];
     [self close];
 }

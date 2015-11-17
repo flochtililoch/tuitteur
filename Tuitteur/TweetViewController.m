@@ -9,7 +9,7 @@
 #import "TweetViewController.h"
 #import "NavigationViewController.h"
 #import "ComposeViewController.h"
-#import "ProfileViewController.h"
+#import "ProfileDetailsViewController.h"
 #import "UIImageView+FadeIn.h"
 #import "TweetActionButton.h"
 #import "TweetLikeButton.h"
@@ -146,7 +146,7 @@
 }
 
 - (IBAction)onUserProfileImageTap:(UITapGestureRecognizer *)sender {
-    ProfileViewController *vc = [[ProfileViewController alloc] init];
+    ProfileDetailsViewController *vc = [[ProfileDetailsViewController alloc] init];
     User *user = self.tweet.user;
     if (self.tweet.retweetedFromTweet != nil) {
         user = self.tweet.retweetedFromTweet.user;

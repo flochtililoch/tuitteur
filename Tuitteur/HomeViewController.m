@@ -11,7 +11,7 @@
 #import "NavigationViewController.h"
 #import "TweetViewController.h"
 #import "ComposeViewController.h"
-#import "ProfileViewController.h"
+#import "ProfileDetailsViewController.h"
 #import "TweetActionsView.h"
 #import "TweetCell.h"
 #import "User.h"
@@ -135,7 +135,7 @@
 #pragma - TweetCellDelegate
 
 - (void)profilePictureWasTappedForUser:(User*)user {
-    ProfileViewController *vc = [[ProfileViewController alloc] init];
+    ProfileDetailsViewController *vc = [[ProfileDetailsViewController alloc] init];
     vc.user = user;
     [self.navigationController pushViewController:vc animated:YES];
 }
