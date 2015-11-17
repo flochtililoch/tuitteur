@@ -2,7 +2,7 @@
 
 **Tuitteur** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **25** hours spent in total
+Time spent: **40** hours spent in total
 
 ## Week 3
 
@@ -81,6 +81,7 @@ Challenges:
 - Creating re-usable view for common elements such as retweet text or tweet actions buttons.
 - Creating "Compose view" delegate to be implemented by both Home and Tweet views.
 - Dealing with Twitter API rate limitation and quirks (i.e. "user.favourites_count" vs "tweet.favorite_count")
+- Visual bugs not obvious to solve, resolved with not-so-clean fixes (e.g [here](https://github.com/flochtililoch/tuitteur/blob/master/Tuitteur/MenuViewController.m#L72), [here](https://github.com/flochtililoch/tuitteur/blob/master/Tuitteur/ProfileDetailsViewController.m#L61))
 
 ## License
 

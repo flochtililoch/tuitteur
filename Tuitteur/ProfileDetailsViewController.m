@@ -57,6 +57,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    // The background image does not slide at the speed of the view when navigating back
+    // causing a weird lag effect. Quick fix: hide it before navigating away
     [self.backgroundImageView setAlpha:0];
 }
 

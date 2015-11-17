@@ -68,6 +68,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    // Show view controller on viewWillAppear as the frame of the home controller
+    // seem to be bigger than the screen when rendered in viewDidLoad
     [self showViewController:self.nvcHome];
 }
 
